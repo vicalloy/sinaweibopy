@@ -225,4 +225,6 @@ class APIClient(object):
     def __getattr__(self, attr):
         if attr in ('statuses__upload', ):
             return getattr(self.upload, attr)
-        return getattr(self.post, attr)
+        if attr in ('statuses__update', ):
+            return getattr(self.post, attr)
+        return getattr(self.get, attr)
