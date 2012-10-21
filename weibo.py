@@ -223,4 +223,6 @@ class APIClient(object):
         return not self.access_token or time.time() > self.expires
 
     def __getattr__(self, attr):
-        return getattr(self.get, attr)
+        if attr in ('statuses__upload', ):
+            return getattr(self.upload, attr)
+        return getattr(self.post, attr)
